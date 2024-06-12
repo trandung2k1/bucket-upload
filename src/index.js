@@ -10,6 +10,7 @@ const connectDB = require('./configs/mongo');
 const routes = require('./routes');
 const port = process.env.PORT || 4000;
 const dir = path.resolve(path.join(__dirname, 'buckets'));
+
 const startServer = () => {
     const app = express();
     app.use(bodyParser.json());

@@ -14,11 +14,6 @@ const bucketSchema = new Schema(
             unique: true,
             trim: true,
         },
-        bucketPath: {
-            type: String,
-            required: true,
-            trim: true,
-        },
         bucketSlug: {
             type: String,
             required: true,
@@ -36,5 +31,5 @@ const bucketSchema = new Schema(
     },
 );
 
-const Bucket = models.Bucket || model('Bucket', bucketSchema);
+const Bucket = model('Bucket', bucketSchema);
 module.exports = Bucket;
