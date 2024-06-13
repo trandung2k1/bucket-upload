@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const expressFormidable = require('express-formidable');
 const fs = require('fs');
 const path = require('path');
 const { notFound, errorHandlingMiddleware } = require('./middleware/errorHandlingMiddleware');
@@ -15,6 +16,7 @@ const startServer = () => {
     const app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(expressFormidable());
     app.disable('x-powered-by');
     app.use(morgan('combined'));
     app.use(cors());

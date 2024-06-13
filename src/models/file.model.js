@@ -1,4 +1,4 @@
-const { Schema, model, models } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const fileSchema = new Schema(
     {
@@ -36,5 +36,5 @@ const fileSchema = new Schema(
     },
 );
 
-const File = models.File || model('File', fileSchema);
+const File = model('File', fileSchema);
 module.exports = File;
