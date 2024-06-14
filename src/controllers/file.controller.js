@@ -40,6 +40,8 @@ class FileController {
                 fileSlug,
             });
             const savedFile = await newFile.save();
+            findBucket.files.push(savedFile._id);
+            await findBucket.save();
             return res.status(StatusCodes.CREATED).json({ data: savedFile });
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
@@ -85,6 +87,32 @@ class FileController {
                 });
             }
             return res.download(findFile.filePath, findFile.fileName);
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
+        }
+    }
+    static async removeFile(req, res) {
+        const { id } = req.params;
+        try {
+            const findFile = await File.findById(id);
+            if (!findFile) {
+                return res.status(StatusCodes.NOT_FOUND).json({ message: 'File not found' });
+            }
+            // await findFile.remove();
+            await File.findByIdAndDelete(id);
+            await Bucket.updateOne(
+                {
+                    _id: findFile.bucket,
+                },
+                {
+                    $pull: {
+                        files: id,
+                    },
+                },
+                { new: true },
+            );
+            fs.unlinkSync(findFile.filePath);
+            return res.status(StatusCodes.OK).json({ message: 'Delete file successfully' });
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
         }

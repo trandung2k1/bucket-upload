@@ -82,8 +82,9 @@ class BucketController {
             if (!findBucket) {
                 return res.status(StatusCodes.NOT_FOUND).json({ data: 'Bucket not found' });
             }
-            await findBucket.remove();
+            await Bucket.findByIdAndDelete(id);
             await File.deleteMany({ bucket: id });
+            fs.rmSync(rootPath + findBucket.bucketId, { recursive: true });
             return res.status(StatusCodes.OK).json({ data: 'Delete bucket successfully' });
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });

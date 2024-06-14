@@ -6,4 +6,5 @@ router.get('/', fileController.getAllFile);
 router.get('/:id', isValidId, fileController.getFile);
 router.get('/dowload/:id', isValidId, fileController.dowloadFile);
 router.post('/', fileController.createFile);
+router.delete('/:id', isValidId, fileController.removeFile);
 module.exports = router;
