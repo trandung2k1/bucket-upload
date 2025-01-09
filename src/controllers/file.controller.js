@@ -57,7 +57,7 @@ class FileController {
       if (!findFile) {
         return res.status(StatusCodes.NOT_FOUND).json({ message: 'File not found' });
       }
-      const fileData = await fs.readFileSync(findFile.filePath);
+      const fileData = fs.readFileSync(findFile.filePath);
       if (!fileData) {
         return res.json({
           data: fileData,
@@ -80,7 +80,7 @@ class FileController {
       if (!findFile) {
         return res.status(StatusCodes.NOT_FOUND).json({ message: 'File not found' });
       }
-      const fileData = await fs.readFileSync(findFile.filePath);
+      const fileData = fs.readFileSync(findFile.filePath);
       if (!fileData) {
         return res.json({
           message: 'File data error',
