@@ -16,7 +16,7 @@ const startServer = () => {
     const app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(expressFormidable());
+    // app.use(expressFormidable());
     app.disable('x-powered-by');
     app.use(morgan('combined'));
     app.use(cors());
